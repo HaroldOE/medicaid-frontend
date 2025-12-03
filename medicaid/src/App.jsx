@@ -8,8 +8,9 @@ import PrescriptionsPage from "./doctors/pages/PrescriptionPage";
 import AnalyticsPage from "./doctors/pages/AnalyticsPage";
 import ProfilePage from "./doctors/pages/ProfilePage";
 import DocumentationPage from "./doctors/pages/DocumentatiomPage";
-import PatientRegister from "./patients/pages/PatetientRegister";
-
+import PatientPrescriptionsPage from "./patients/pages/PatientsPrescriptionPage";
+import PatientConsultationPage from "./patients/pages/PatientsConsultationPage";
+import PatientMessagesPage from "./patients/pages/PatientsMessagesPage";
 
 function App() {
   return (
@@ -20,11 +21,13 @@ function App() {
       {/* <MyPatientsDashboard /> */}
       {/* <PatientConsultationsPage /> */}
       {/* <AppointmentsPage /> */}
-      {/* <PrescriptionsPage />
-      <AnalyticsPage />
-      <ProfilePage />
-      <DocumentationPage /> */}
-    <PatientRegister/>
+      {/* <PrescriptionsPage /> */}
+      {/* <AnalyticsPage /> */}
+      {/* <ProfilePage /> */}
+      {/* <DocumentationPage /> */}
+      {/* <PatientPrescriptionsPage /> */}
+      {/* <PatientConsultationPage /> */}
+      <PatientMessagesPage />
     </>
   );
 }
