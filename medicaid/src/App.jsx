@@ -9,7 +9,7 @@ import AnalyticsPage from "./doctors/pages/AnalyticsPage";
 import ProfilePage from "./doctors/pages/ProfilePage";
 import DocumentationPage from "./doctors/pages/DocumentatiomPage";
 import PatientPrescriptionsPage from "./patients/pages/PatientsPrescriptionPage";
-
+import PatientDashboards from "./patients/pages/PatientDashboards";
 function App() {
   return (
     <>
@@ -23,7 +23,9 @@ function App() {
       {/* <AnalyticsPage /> */}
       {/* <ProfilePage /> */}
       {/* <DocumentationPage /> */}
-      <PatientPrescriptionsPage />
+      {/* <PatientPrescriptionsPage /> */}
+      <PatientDashboards />
+
     </>
   );
 }
