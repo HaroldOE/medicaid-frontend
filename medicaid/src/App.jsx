@@ -20,10 +20,10 @@ function App() {
       {/* <MyPatientsDashboard /> */}
       {/* <PatientConsultationsPage /> */}
       {/* <AppointmentsPage /> */}
-      {/* <PrescriptionsPage /> */}
-      {/* <AnalyticsPage /> */}
-      {/* <ProfilePage /> */}
-      {/* <DocumentationPage /> */}
+      {/* <PrescriptionsPage />
+      <AnalyticsPage />
+      <ProfilePage />
+      <DocumentationPage /> */}
     <PatientRegister/>
     </>
   );
