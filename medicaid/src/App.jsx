@@ -6,7 +6,7 @@ import MessagePage from "./doctors/pages/MessagePage";
 import AppointmentsPage from "./doctors/pages/AppointmentPage";
 import PrescriptionsPage from "./doctors/pages/PrescriptionPage";
 import AnalyticsPage from "./doctors/pages/AnalyticsPage";
-
+import PatientRegistrationForm from "./patients/pages/PatientrRegisterForm";
 function App() {
   return (
     <>
@@ -17,7 +17,8 @@ function App() {
       {/* <PatientConsultationsPage /> */}
       {/* <AppointmentsPage /> */}
       {/* <PrescriptionsPage /> */}
-      <AnalyticsPage />
+      {/*<AnalyticsPage />*/}
+      <PatientRegistrationForm />
     </>
   );
 }
