@@ -8,6 +8,8 @@ import PrescriptionsPage from "./doctors/pages/PrescriptionPage";
 import AnalyticsPage from "./doctors/pages/AnalyticsPage";
 import ProfilePage from "./doctors/pages/ProfilePage";
 import DocumentationPage from "./doctors/pages/DocumentatiomPage";
+import PatientRegister from "./patients/pages/PatetientRegister";
+
 
 function App() {
   return (
@@ -21,7 +23,8 @@ function App() {
       {/* <PrescriptionsPage /> */}
       {/* <AnalyticsPage /> */}
       {/* <ProfilePage /> */}
-      <DocumentationPage />
+      {/* <DocumentationPage /> */}
+    <PatientRegister/>
     </>
   );
 }
