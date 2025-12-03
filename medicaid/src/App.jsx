@@ -9,7 +9,9 @@ import AnalyticsPage from "./doctors/pages/AnalyticsPage";
 import ProfilePage from "./doctors/pages/ProfilePage";
 import DocumentationPage from "./doctors/pages/DocumentatiomPage";
 import PatientPrescriptionsPage from "./patients/pages/PatientsPrescriptionPage";
-import PatientDashboards from "./patients/pages/PatientDashboards";
+import PatientConsultationPage from "./patients/pages/PatientsConsultationPage";
+import PatientMessagesPage from "./patients/pages/PatientsMessagesPage";
+
 function App() {
   return (
     <>
@@ -24,8 +26,8 @@ function App() {
       {/* <ProfilePage /> */}
       {/* <DocumentationPage /> */}
       {/* <PatientPrescriptionsPage /> */}
-      <PatientDashboards />
-
+      {/* <PatientConsultationPage /> */}
+      <PatientMessagesPage />
     </>
   );
 }
