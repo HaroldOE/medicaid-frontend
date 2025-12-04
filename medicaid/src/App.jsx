@@ -14,6 +14,8 @@ import PatientMessagesPage from "./patients/pages/PatientsMessagesPage";
 import PatientMedicalHistoryPage from "./doctors/pages/PatientMedicalHistoryPage";
 import PatientAppointmentsPage from "./doctors/pages/PatientAppointmentsPage";
 import ProfileSettingsPage from "./patients/pages/ProfileSettingsPage";
+import PateintNotificationPage from "./patients/pages/PatientNotificationsPage";
+import PatientDocumentationPage from "./patients/pages/PatientsDocumentationPage";
 
 function App() {
   return (
@@ -32,8 +34,10 @@ function App() {
       {/* <PatientConsultationPage /> */}
       {/* <PatientMessagesPage /> */}
       {/* <PatientMedicalHistoryPage /> */}
-      {/* <PatientAppointmentsPage /> */}
-      <ProfileSettingsPage />
+      <PatientAppointmentsPage />
+      {/* <ProfileSettingsPage /> */}
+      {/* <PateintNotificationPage /> */}
+      {/* <PatientDocumentationPage /> */}
     </>
   );
 }
