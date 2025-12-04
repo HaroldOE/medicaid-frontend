@@ -1,9 +1,9 @@
 import { Lock, Mail } from "lucide-react";
 import { useState } from "react";
 import { Link } from "react-router";
-import assets from "../../assets/assets";
+import assets from "../assets/assets";
 
-function PatLogin() {
+export default function DocLogin() {
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -15,7 +15,7 @@ function PatLogin() {
 
   return (
     <div className="min-h-screen flex flex-col md:flex-row">
-      {/* LEFT SIDE - Login Form */}
+      {/* LEFT SIDE - Form */}
       <div className="flex-1 flex flex-col justify-center items-center bg-white px-8 py-12 md:px-16 lg:px-24">
         <div className="w-full max-w-md">
           {/* Logo */}
@@ -27,9 +27,9 @@ function PatLogin() {
             />
           </div>
 
-          {/* Welcome Text */}
+          {/* Title & Subtitle */}
           <h2 className="text-3xl font-bold text-gray-900 text-center mb-2">
-            Welcome Back Patient
+            Welcome Back Doctor
           </h2>
           <p className="text-lg text-gray-600 text-center mb-10">
             Sign in to your account
@@ -37,7 +37,7 @@ function PatLogin() {
 
           {/* Form */}
           <form className="space-y-6">
-            {/* Email / Phone Input */}
+            {/* Email / Phone */}
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">
                 Email or Phone Number
@@ -58,7 +58,7 @@ function PatLogin() {
               </div>
             </div>
 
-            {/* Password Input */}
+            {/* Password */}
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">
                 Password
@@ -89,7 +89,7 @@ function PatLogin() {
                 <span>Remember Me</span>
               </label>
               <Link
-                to="/patpassreset"
+                to="/docpassreset"
                 className="text-blue-600 hover:underline font-medium"
               >
                 Forgot Password?
@@ -109,7 +109,7 @@ function PatLogin() {
           <p className="mt-8 text-center text-gray-600">
             Don't have an account?{" "}
             <Link
-              to="/create-account"
+              to="/doctors-create-account"
               className="text-blue-600 font-semibold hover:underline"
             >
               Sign Up
@@ -125,18 +125,15 @@ function PatLogin() {
         </div>
       </div>
 
-      {/* RIGHT SIDE - Image */}
+      {/* RIGHT SIDE - Background Image */}
       <div className="hidden md:block flex-1 relative overflow-hidden">
         <img
-          src={assets.userCreate} // Make sure this image matches the one in the screenshot
-          alt="Nurse assisting patient"
+          src={assets.docimg}
+          alt="Professional Doctor"
           className="absolute inset-0 w-full h-full object-cover rounded-l-3xl"
         />
-        {/* Optional overlay for better text readability if needed in future */}
         <div className="absolute inset-0 bg-gradient-to-r from-transparent to-black/10 rounded-l-3xl"></div>
       </div>
     </div>
   );
 }
-
-export default PatLogin;

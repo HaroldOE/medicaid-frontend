@@ -14,13 +14,18 @@ import PatientPrescriptionsPage from "./patients/pages/PatientsPrescriptionPage"
 import PatientConsultationPage from "./patients/pages/PatientsConsultationPage";
 import PatientMessagesPage from "./patients/pages/PatientsMessagesPage";
 import PatientMedicalHistoryPage from "./doctors/pages/PatientMedicalHistoryPage";
-import PatientAppointmentsPage from "./doctors/pages/PatientAppointmentsPage";
+import PatientAppointmentsPage from "./patients/pages/PatientAppointmentsPage";
 import ProfileSettingsPage from "./patients/pages/ProfileSettingsPage";
 import PateintNotificationPage from "./patients/pages/PatientNotificationsPage";
 import PatientDocumentationPage from "./patients/pages/PatientsDocumentationPage";
 import EmergecyContactCard from "./patients/pages/EmmergencyContactPAge";
 // import PatientMedHistory from "./patients/pages/PatientMedHistory";
+import PatientDashboard from "./patients/pages/PatientsDashboards";
 import MainMedHistory from "./patients/pages/MainMedHistory";
+import Login from "./patients/pages/Login";
+import CreateAccount from "./layouts/CreatAccount";
+import DocLogin from "./layouts/DocLogin";
+import DocCreateAccount from "./layouts/DocCreateAccount";
 
 const AppRouter = () => {
   return (
@@ -30,7 +35,9 @@ const AppRouter = () => {
 
         {/* Doctor Login Route */}
 
-        {/* <Route path="/doclogin" element={<DocLogin />} /> */}
+        <Route path="/doctors-login" element={<DocLogin />} />
+        <Route path="/doctors-create-account" element={<DocCreateAccount />} />
+
         {/* <Route path="/doccreate" element={<DocCreateAccount />} /> */}
         {/* <Route path="/docpassreset" element={<DocPasswordReset />} /> */}
         {/* <Route path="/docverifypass" element={<DocVerifyPassword />} /> */}
@@ -58,31 +65,34 @@ const AppRouter = () => {
           element={<DocumentationPage />}
         />
         <Route
-          path="doctor-patient-prescriptions-page"
-          element={<PatientPrescriptionsPage />}
-        />
-        <Route
           path="doctor-patient-consultation-page"
           element={<PatientConsultationPage />}
         />
-        <Route
-          path="doctor-patient-messages-page"
-          element={<PatientMessagesPage />}
-        />
-        <Route
-          path="doctor-patient-consultation-page"
-          element={<PatientConsultationPage />}
-        />
+        <Route path="/doctor-profile-page" element={<ProfilePage />} />
 
-        {/* PATIENTS ROUTE */}
-        <Route path="Patient-messages-page" element={<PatientMessagesPage />} />
+        {/*============================== PATIENTS ROUTE */}
+
+        <Route path="login" element={<Login />} />
+        <Route path="create-account" element={<CreateAccount />} />
+
+        <Route path="patients-dashboard" element={<PatientDashboard />} />
+        <Route path="patient-messages-page" element={<PatientMessagesPage />} />
         <Route
           path="patient-medical-history"
           element={<PatientMedicalHistoryPage />}
         />
+
+        <Route
+          path="patient-consultation-page"
+          element={<PatientConsultationPage />}
+        />
         <Route
           path="patient-appointments-page"
           element={<PatientAppointmentsPage />}
+        />
+        <Route
+          path="patients-prescription-page"
+          element={<PatientPrescriptionsPage />}
         />
         <Route path="Profile-settings-page" element={<ProfileSettingsPage />} />
         <Route
