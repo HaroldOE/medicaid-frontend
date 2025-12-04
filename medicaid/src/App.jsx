@@ -11,9 +11,12 @@ import DocumentationPage from "./doctors/pages/DocumentatiomPage";
 import PatientPrescriptionsPage from "./patients/pages/PatientsPrescriptionPage";
 import PatientConsultationPage from "./patients/pages/PatientsConsultationPage";
 import PatientMessagesPage from "./patients/pages/PatientsMessagesPage";
-import PatientDashboards from "./patients/pages/PatientDashboards";
-import PatientMedHistory from "./patients/pages/PatientMedHistory";
-import MedicalHistoryPage from "./patients/pages/MedicalHistoryPage";
+import PatientMedicalHistoryPage from "./doctors/pages/PatientMedicalHistoryPage";
+import PatientAppointmentsPage from "./doctors/pages/PatientAppointmentsPage";
+import ProfileSettingsPage from "./patients/pages/ProfileSettingsPage";
+import PateintNotificationPage from "./patients/pages/PatientNotificationsPage";
+import PatientDocumentationPage from "./patients/pages/PatientsDocumentationPage";
+import EmergecyContactCard from "./patients/pages/EmmergencyContactPAge";
 function App() {
   return (
     <>
@@ -30,9 +33,12 @@ function App() {
       {/* <PatientPrescriptionsPage /> */}
       {/* <PatientConsultationPage /> */}
       {/* <PatientMessagesPage /> */}
-      {/* <PatientDashboards/> */}
-      {/* <PatientMedHistory /> */}
-      <MedicalHistoryPage />
+      {/* <PatientMedicalHistoryPage /> */}
+      {/* <PatientAppointmentsPage /> */}
+      {/* <ProfileSettingsPage /> */}
+      {/* <PateintNotificationPage /> */}
+      {/* <PatientDocumentationPage /> */}
+      <EmergecyContactCard />
     </>
   );
 }
