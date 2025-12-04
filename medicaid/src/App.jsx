@@ -11,7 +11,10 @@ import DocumentationPage from "./doctors/pages/DocumentatiomPage";
 import PatientPrescriptionsPage from "./patients/pages/PatientsPrescriptionPage";
 import PatientConsultationPage from "./patients/pages/PatientsConsultationPage";
 import PatientMessagesPage from "./patients/pages/PatientsMessagesPage";
-
+import PatientDashboards from "./patients/pages/PatientDashboards";
+import MedicalHistory from "./patients/pages/MedicalHistory";
+import MedHistory from "./patients/pages/MedHistory";
+import MedHistoryDashboard from "./patients/pages/MedHIstoryDashboard";
 function App() {
   return (
     <>
@@ -27,7 +30,14 @@ function App() {
       {/* <DocumentationPage /> */}
       {/* <PatientPrescriptionsPage /> */}
       {/* <PatientConsultationPage /> */}
-      <PatientMessagesPage />
+      {/* <PatientMessagesPage /> */}
+      {/* <PatientDashboards/> */}
+      {/* <MedicalHistory/> */}
+      {/* <MedHistory/> */}
+      <MedHistoryDashboard/>
+
+
+
     </>
   );
 }
