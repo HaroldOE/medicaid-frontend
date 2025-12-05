@@ -11,6 +11,7 @@ import DocumentationPage from "./doctors/pages/DocumentatiomPage";
 import PatientPrescriptionsPage from "./patients/pages/PatientsPrescriptionPage";
 import PatientConsultationPage from "./patients/pages/PatientsConsultationPage";
 import PatientMessagesPage from "./patients/pages/PatientsMessagesPage";
+import PatientEmergencyContact from "./patients/pages/PatientEmergencyContact";
 
 function App() {
   return (
@@ -27,7 +28,9 @@ function App() {
       {/* <DocumentationPage /> */}
       {/* <PatientPrescriptionsPage /> */}
       {/* <PatientConsultationPage /> */}
-      <PatientMessagesPage />
+      {/* <PatientMessagesPage /> */}
+      
+      
     </>
   );
 }
