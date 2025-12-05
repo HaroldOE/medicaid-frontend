@@ -9,8 +9,10 @@ import AnalyticsPage from "./doctors/pages/AnalyticsPage";
 import ProfilePage from "./doctors/pages/ProfilePage";
 import DocumentationPage from "./doctors/pages/DocumentatiomPage";
 import PatientPrescriptionsPage from "./patients/pages/PatientsPrescriptionPage";
-import EmergencyContactsPage from "./patients/pages/EmergencyContactsPage";
+// import PatientEmergencyContactsPage from "./patients/pages/PatientEmergencyContactsPage";
 import NotificationsPage from "./patients/pages/NotificationPage";
+import PatientSignupPage from "./patients/pages/PatientSignupPage";
+
 function App() {
   return (
     <>
@@ -24,9 +26,11 @@ function App() {
       {/* <AnalyticsPage /> */}
       {/* <ProfilePage /> */}
       {/* <DocumentationPage /> */}
-     {/* <PatientPrescriptionsPage /> */}
-       {/* <EmergencyContactsPage /> */}
-    <NotificationsPage/>
+      {/* <PatientPrescriptionPage /> */}
+      {/* <PatientEmergencyContactsPage /> */}
+      {/*} <NotificationsPage/> */}
+        <PatientSignupPage/>
+
     </>
   );
 }
