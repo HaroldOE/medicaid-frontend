@@ -8,7 +8,6 @@ export default function PatientDashboard() {
   return (
     // Root flex container – sidebar and main side-by-side on lg+, stacked on mobile
     <div className="min-h-screen flex flex-col lg:flex-row bg-gray-50">
-      
       {/* ==================== SIDEBAR ==================== */}
       {/* Full height, sticky, dark blue like in your screenshot */}
       <aside className="w-full lg:w-64 flex-shrink-0 bg-[#0F172A] text-white">
