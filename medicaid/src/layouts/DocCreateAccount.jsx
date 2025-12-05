@@ -1,9 +1,9 @@
 import { Lock, Mail, Phone, User } from "lucide-react";
 import { useState } from "react";
-import { Link } from "react-router"; // Fixed import
+import { Link } from "react-router";
 import assets from "../assets/assets"; // Adjust path if needed
 
-export default function PatCreateAccount() {
+export default function DocCreateAccount() {
   const [formData, setFormData] = useState({
     fullname: "",
     email: "",
@@ -18,7 +18,7 @@ export default function PatCreateAccount() {
 
   return (
     <div className="min-h-screen flex flex-col md:flex-row">
-      {/* LEFT SIDE - Create Account Form */}
+      {/* LEFT SIDE - Form */}
       <div className="flex-1 flex flex-col justify-center items-center bg-white px-8 py-12 md:px-16 lg:px-24">
         <div className="w-full max-w-md">
           {/* Logo */}
@@ -32,10 +32,11 @@ export default function PatCreateAccount() {
 
           {/* Title & Subtitle */}
           <h2 className="text-3xl font-bold text-gray-900 text-center mb-2">
-            Patient Create Account
+            Doctor Create Account
           </h2>
-          <p className="text-lg text-gray-600 text-center mb-10">
-            Join our healthcare platform
+          <p className="text-lg text-gray-600 text-center mb-10 max-w-lg mx-auto">
+            Sign Up to Connect, Consult & Care. Start Your Journey as a Trusted
+            Medical Expert.
           </p>
 
           {/* Form */}
@@ -158,7 +159,7 @@ export default function PatCreateAccount() {
           <p className="mt-8 text-center text-gray-600">
             Already have an account?{" "}
             <Link
-              to="/patlogin"
+              to="/doclogin"
               className="text-blue-600 font-semibold hover:underline"
             >
               Sign In
@@ -174,11 +175,11 @@ export default function PatCreateAccount() {
         </div>
       </div>
 
-      {/* RIGHT SIDE - Image */}
+      {/* RIGHT SIDE - Background Image */}
       <div className="hidden md:block flex-1 relative overflow-hidden">
         <img
-          src={assets.userCreate}
-          alt="Nurse assisting patient"
+          src={assets.docimg} // Replace with actual doctor image
+          alt="Professional Doctor"
           className="absolute inset-0 w-full h-full object-cover rounded-l-3xl"
         />
         <div className="absolute inset-0 bg-gradient-to-r from-transparent to-black/10 rounded-l-3xl"></div>
