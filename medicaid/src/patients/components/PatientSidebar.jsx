@@ -1,4 +1,5 @@
 // src/components/patient/PatientSidebar.jsx
+import { Link } from "react-router";
 import {
   Home,
   MessageCircle,
@@ -14,17 +15,25 @@ import {
 
 export default function PatientSidebar() {
   const menuItems = [
-    { icon: Home, label: "Dashboard" },
-    { icon: MessageCircle, label: "Consultation" },
-    { icon: FileText, label: "Messages" },
-    { icon: Clock, label: "Prescription", active: true },
-    { icon: Heart, label: "Medical History" },
-    { icon: Clock, label: "Appointments" },
-    { icon: Phone, label: "Emergency contacts" },
-    { icon: Bell, label: "Notifications" },
-    { icon: BookOpen, label: "Documentation" },
-    { icon: User, label: "Profile" },
-    { icon: LogOut, label: "Logout" },
+    { icon: Home, label: "Dashboard", to: "/patients-dashboard" },
+    {
+      icon: MessageCircle,
+      label: "Messages",
+      to: "/patient-messages-page",
+    }, // Using Messages page as proxy for now (see note below)
+    // { icon: FileText, label: "Messages", to: "/patient-messages-page" },
+    { icon: Clock, label: "Prescription", to: "/patients-prescription-page" }, // Note: This route is missing — see fix below
+    { icon: Heart, label: "Medical History", to: "/patients-medical-history" }, // Points to MainMedHistory
+    { icon: Clock, label: "Appointments", to: "/patient-appointments-page" }, // This is doctor view — might want a patient version
+    { icon: Phone, label: "Emergency contacts", to: "/emergecy-contact-card" },
+    { icon: Bell, label: "Notifications", to: "/pateint-notification-page" },
+    {
+      icon: BookOpen,
+      label: "Documentation",
+      to: "/patient-documentation-page",
+    },
+    { icon: User, label: "Profile", to: "/Profile-settings-page" }, // Route exists, but path has uppercase — better to normalize
+    { icon: LogOut, label: "Logout", to: "/" }, // Redirect to role selection or login
   ];
 
   return (
@@ -43,7 +52,8 @@ export default function PatientSidebar() {
         <ul className="space-y-1">
           {menuItems.map((item, i) => (
             <li key={i}>
-              <button
+              <Link
+                to={item.to}
                 className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg transition ${
                   item.active
                     ? "bg-white text-blue-900 font-medium"
@@ -52,7 +62,7 @@ export default function PatientSidebar() {
               >
                 <item.icon className="w-5 h-5" />
                 <span>{item.label}</span>
-              </button>
+              </Link>
             </li>
           ))}
         </ul>

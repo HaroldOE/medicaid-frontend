@@ -1,17 +1,4 @@
-// import AppRouter from "./router";
-import DoctorsDashboard from "./doctors/pages/DoctorsDashboard";
-import MyPatientsDashboard from "./doctors/pages/MyPatientDashboard";
-import PatientConsultationsPage from "./doctors/pages/PatientConsultationPage";
-import MessagePage from "./doctors/pages/MessagePage";
-import AppointmentsPage from "./doctors/pages/AppointmentPage";
-import PrescriptionsPage from "./doctors/pages/PrescriptionPage";
-import AnalyticsPage from "./doctors/pages/AnalyticsPage";
-import ProfilePage from "./doctors/pages/ProfilePage";
-import DocumentationPage from "./doctors/pages/DocumentatiomPage";
-import PatientPrescriptionsPage from "./patients/pages/PatientsPrescriptionPage";
-import PatientConsultationPage from "./patients/pages/PatientsConsultationPage";
-import PatientMessagesPage from "./patients/pages/PatientsMessagesPage";
-import PatientEmergencyContact from "./patients/pages/PatientEmergencyContact";
+import Router from "./router";
 
 function App() {
   return (
@@ -29,8 +16,14 @@ function App() {
       {/* <PatientPrescriptionsPage /> */}
       {/* <PatientConsultationPage /> */}
       {/* <PatientMessagesPage /> */}
-      
-      
+      {/* <PatientMedicalHistoryPage /> */}
+      {/* <PatientAppointmentsPage /> */}
+      {/* <ProfileSettingsPage /> */}
+      {/* <PateintNotificationPage /> */}
+      {/* <PatientDocumentationPage /> */}
+      {/* <EmergecyContactCard /> */}
+      {/* <PatientMedHistory /> */}
+      <Router />
     </>
   );
 }
