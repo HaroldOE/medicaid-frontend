@@ -32,11 +32,14 @@ function App() {
       {/* <PatientPrescriptionsPage /> */}
       {/* <PatientConsultationPage /> */}
       {/* <PatientMessagesPage /> */}
-       {/* <PatientDashboards/> */}
-      <PatientMedHistory/>
-
-
-
+      {/* <PatientMedicalHistoryPage /> */}
+      {/* <PatientAppointmentsPage /> */}
+      {/* <ProfileSettingsPage /> */}
+      {/* <PateintNotificationPage /> */}
+      {/* <PatientDocumentationPage /> */}
+      {/* <EmergecyContactCard /> */}
+      {/* <PatientMedHistory /> */}
+      <Router />
     </>
   );
 }
