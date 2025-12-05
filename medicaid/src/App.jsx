@@ -31,9 +31,9 @@ function App() {
       {/* <PatientPrescriptionsPage /> */}
       {/* <PatientConsultationPage /> */}
       {/* <PatientMessagesPage /> */}
-       {/* <PatientDashboards/> */}
-      {/* <PatientMedHistory/> */}
-      <PatientMedHistoryAddEntry/>
+      <PatientDashboards/>
+      {/* <PatientMedHistory/>  */}
+      {/* <PatientMedHistoryAddEntry/> */}
 
 
 
