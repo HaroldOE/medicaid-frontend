@@ -13,7 +13,7 @@ export const AuthProvider = ({ children }) => {
 
   useEffect(() => {
     const stored = localStorage.getItem("user");
-    if (stored) setUser(JSON.parse(stored));
+    if (stored && stored !== "undefined") setUser(JSON.parse(stored));
     setLoading(false);
   }, []);
 
@@ -25,6 +25,22 @@ export const AuthProvider = ({ children }) => {
     });
     const data = await res.json();
     if (!res.ok) throw new Error(data.message || "Registration failed");
+    return data;
+  };
+
+  // NEW: Patient Registration
+  const registerPatient = async (formData) => {
+    const res = await fetch(`${API}/api/patients`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(formData),
+    });
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.message || "Patient registration failed");
+
+    // Auto login after successful registration
+    setUser(data.user);
+    localStorage.setItem("user", JSON.stringify(data.user));
     return data;
   };
 
@@ -47,7 +63,9 @@ export const AuthProvider = ({ children }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ user, login, logout, register, loading }}>
+    <AuthContext.Provider
+      value={{ user, login, logout, register, registerPatient, loading }}
+    >
       {children}
     </AuthContext.Provider>
   );

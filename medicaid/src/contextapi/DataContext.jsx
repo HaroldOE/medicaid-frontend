@@ -77,6 +77,7 @@ export const DataProvider = ({ children }) => {
         appointments,
         loading,
         error,
+        setError,
         fetchData,
         createRecord,
         uploadExcel,
