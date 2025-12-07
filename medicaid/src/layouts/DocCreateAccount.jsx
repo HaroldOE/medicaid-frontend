@@ -1,19 +1,104 @@
-import { Lock, Mail, Phone, User } from "lucide-react";
+import { Lock, Mail, Phone, User, AlertCircle, Calendar } from "lucide-react";
 import { useState } from "react";
-import { Link } from "react-router";
-import assets from "../assets/assets"; // Adjust path if needed
+import { Link, useNavigate } from "react-router";
+import assets from "../assets/assets";
+import { useAuth } from "../contextapi/AuthContext";
 
 export default function DocCreateAccount() {
   const [formData, setFormData] = useState({
-    fullname: "",
+    name: "",
     email: "",
     phone: "",
     password: "",
     confirmPassword: "",
+    dob: "", // ← ADDED
+    // role: "doctor",
+    location: "",
+    specialization: "",
+    license: "",
+    availability: "Available",
+    rating: 0,
   });
+
+  const [errors, setErrors] = useState({});
+  const [isLoading, setIsLoading] = useState(false);
+  const [successMessage, setSuccessMessage] = useState("");
+
+  const { register } = useAuth();
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
+    if (errors[e.target.name]) {
+      setErrors({ ...errors, [e.target.name]: "" });
+    }
+  };
+
+  const validateForm = () => {
+    const newErrors = {};
+
+    if (!formData.name.trim()) newErrors.name = "Full name is required";
+    if (!formData.email.trim()) newErrors.email = "Email is required";
+    else if (!/\S+@\S+\.\S+/.test(formData.email))
+      newErrors.email = "Email is invalid";
+
+    if (!formData.phone.trim()) newErrors.phone = "Phone number is required";
+
+    if (!formData.dob) newErrors.dob = "Date of birth is required"; // ← VALIDATION
+
+    if (!formData.password) newErrors.password = "Password is required";
+    else if (formData.password.length < 6)
+      newErrors.password = "Password must be at least 6 characters";
+
+    if (formData.password !== formData.confirmPassword)
+      newErrors.confirmPassword = "Passwords do not match";
+
+    if (!formData.specialization.trim())
+      newErrors.specialization = "Specialization is required";
+    if (!formData.license.trim())
+      newErrors.license = "License number is required";
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (!validateForm()) return;
+
+    setIsLoading(true);
+    setSuccessMessage("");
+    setErrors({});
+
+    try {
+      const doctorData = {
+        name: formData.name,
+        email: formData.email,
+        password: formData.password,
+        // role: "doctor",
+        phone_number: formData.phone,
+        dob: formData.dob, // ← NOW SENT TO BACKEND
+        location: formData.location || null,
+        specialization: formData.specialization,
+        license: formData.license,
+        availability: formData.availability,
+        rating: formData.rating,
+      };
+
+      await register(doctorData);
+
+      setSuccessMessage(
+        "Doctor account created successfully! Redirecting to login..."
+      );
+
+      setTimeout(() => {
+        navigate("/doctors-login");
+      }, 2000);
+    } catch (err) {
+      setErrors({ submit: err.message || "Registration failed. Try again." });
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -21,7 +106,6 @@ export default function DocCreateAccount() {
       {/* LEFT SIDE - Form */}
       <div className="flex-1 flex flex-col justify-center items-center bg-white px-8 py-12 md:px-16 lg:px-24">
         <div className="w-full max-w-md">
-          {/* Logo */}
           <div className="flex justify-center mb-8">
             <img
               src={assets.logoTransp}
@@ -30,7 +114,6 @@ export default function DocCreateAccount() {
             />
           </div>
 
-          {/* Title & Subtitle */}
           <h2 className="text-3xl font-bold text-gray-900 text-center mb-2">
             Doctor Create Account
           </h2>
@@ -39,26 +122,40 @@ export default function DocCreateAccount() {
             Medical Expert.
           </p>
 
-          {/* Form */}
-          <form className="space-y-6">
+          {successMessage && (
+            <div className="mb-6 p-4 bg-green-100 border border-green-400 text-green-700 rounded-xl flex items-center">
+              <AlertCircle className="mr-2" />
+              {successMessage}
+            </div>
+          )}
+          {errors.submit && (
+            <div className="mb-6 p-4 bg-red-100 border border-red-400 text-red-700 rounded-xl flex items-center">
+              <AlertCircle className="mr-2" />
+              {errors.submit}
+            </div>
+          )}
+
+          <form onSubmit={handleSubmit} className="space-y-6">
             {/* Full Name */}
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">
                 Full Name
               </label>
               <div className="relative">
-                <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-                  <User className="h-5 w-5 text-gray-400" />
-                </div>
+                <User className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none h-5 w-5 text-gray-400" />
                 <input
                   type="text"
-                  name="fullname"
-                  value={formData.fullname}
+                  name="name"
+                  value={formData.name}
                   onChange={handleChange}
-                  placeholder="your fullname"
-                  className="w-full pl-12 pr-4 py-4 bg-gray-50 border border-gray-300 rounded-xl text-gray-700 placeholder-gray-400 
-                           focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition"
+                  placeholder="Dr. John Doe"
+                  className={`w-full pl-12 pr-4 py-4 bg-gray-50 border rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+                    errors.name ? "border-red-500" : "border-gray-300"
+                  }`}
                 />
+                {errors.name && (
+                  <p className="text-red-500 text-xs mt-1">{errors.name}</p>
+                )}
               </div>
             </div>
 
@@ -68,39 +165,108 @@ export default function DocCreateAccount() {
                 Email
               </label>
               <div className="relative">
-                <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-                  <Mail className="h-5 w-5 text-gray-400" />
-                </div>
+                <Mail className="absolute left-4 top-5 h-5 w-5 text-gray-400" />
                 <input
                   type="email"
                   name="email"
                   value={formData.email}
                   onChange={handleChange}
-                  placeholder="your@email.com"
-                  className="w-full pl-12 pr-4 py-4 bg-gray-50 border border-gray-300 rounded-xl text-gray-700 placeholder-gray-400 
-                           focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition"
+                  placeholder="doctor@example.com"
+                  className={`w-full pl-12 pr-4 py-4 bg-gray-50 border rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+                    errors.email ? "border-red-500" : "border-gray-300"
+                  }`}
                 />
+                {errors.email && (
+                  <p className="text-red-500 text-xs mt-1">{errors.email}</p>
+                )}
               </div>
             </div>
 
-            {/* Phone Number */}
+            {/* Phone */}
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">
                 Phone Number
               </label>
               <div className="relative">
-                <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-                  <Phone className="h-5 w-5 text-gray-400" />
-                </div>
+                <Phone className="absolute left-4 top-5 h-5 w-5 text-gray-400" />
                 <input
                   type="text"
                   name="phone"
                   value={formData.phone}
                   onChange={handleChange}
-                  placeholder="+234 000000000"
-                  className="w-full pl-12 pr-4 py-4 bg-gray-50 border border-gray-300 rounded-xl text-gray-700 placeholder-gray-400 
-                           focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition"
+                  placeholder="+234 000 000 0000"
+                  className={`w-full pl-12 pr-4 py-4 bg-gray-50 border rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+                    errors.phone ? "border-red-500" : "border-gray-300"
+                  }`}
                 />
+                {errors.phone && (
+                  <p className="text-red-500 text-xs mt-1">{errors.phone}</p>
+                )}
+              </div>
+            </div>
+
+            {/* Date of Birth - NEW FIELD */}
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                Date of Birth <span className="text-red-500">*</span>
+              </label>
+              <div className="relative">
+                <Calendar className="absolute left-4 top-5 h-5 w-5 text-gray-400" />
+                <input
+                  type="date"
+                  name="dob"
+                  value={formData.dob}
+                  onChange={handleChange}
+                  className={`w-full pl-12 pr-4 py-4 bg-gray-50 border rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+                    errors.dob ? "border-red-500" : "border-gray-300"
+                  }`}
+                  required
+                />
+              </div>
+              {errors.dob && (
+                <p className="text-red-500 text-xs mt-1">{errors.dob}</p>
+              )}
+            </div>
+
+            {/* Specialization & License */}
+            <div className="grid grid-cols-2 gap-4">
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  Specialization
+                </label>
+                <input
+                  type="text"
+                  name="specialization"
+                  value={formData.specialization}
+                  onChange={handleChange}
+                  placeholder="e.g., Cardiology"
+                  className={`w-full px-4 py-4 bg-gray-50 border rounded-xl ${
+                    errors.specialization ? "border-red-500" : "border-gray-300"
+                  }`}
+                />
+                {errors.specialization && (
+                  <p className="text-red-500 text-xs mt-1">
+                    {errors.specialization}
+                  </p>
+                )}
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  License No.
+                </label>
+                <input
+                  type="text"
+                  name="license"
+                  value={formData.license}
+                  onChange={handleChange}
+                  placeholder="MED12345"
+                  className={`w-full px-4 py-4 bg-gray-50 border rounded-xl ${
+                    errors.license ? "border-red-500" : "border-gray-300"
+                  }`}
+                />
+                {errors.license && (
+                  <p className="text-red-500 text-xs mt-1">{errors.license}</p>
+                )}
               </div>
             </div>
 
@@ -110,18 +276,20 @@ export default function DocCreateAccount() {
                 Password
               </label>
               <div className="relative">
-                <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-                  <Lock className="h-5 w-5 text-gray-400" />
-                </div>
+                <Lock className="absolute left-4 top-5 h-5 w-5 text-gray-400" />
                 <input
                   type="password"
                   name="password"
                   value={formData.password}
                   onChange={handleChange}
                   placeholder="••••••••"
-                  className="w-full pl-12 pr-4 py-4 bg-gray-50 border border-gray-300 rounded-xl text-gray-700 placeholder-gray-400 
-                           focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition"
+                  className={`w-full pl-12 pr-4 py-4 bg-gray-50 border rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+                    errors.password ? "border-red-500" : "border-gray-300"
+                  }`}
                 />
+                {errors.password && (
+                  <p className="text-red-500 text-xs mt-1">{errors.password}</p>
+                )}
               </div>
             </div>
 
@@ -131,31 +299,36 @@ export default function DocCreateAccount() {
                 Confirm Password
               </label>
               <div className="relative">
-                <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-                  <Lock className="h-5 w-5 text-gray-400" />
-                </div>
+                <Lock className="absolute left-4 top-5 h-5 w-5 text-gray-400" />
                 <input
                   type="password"
                   name="confirmPassword"
                   value={formData.confirmPassword}
                   onChange={handleChange}
                   placeholder="••••••••"
-                  className="w-full pl-12 pr-4 py-4 bg-gray-50 border border-gray-300 rounded-xl text-gray-700 placeholder-gray-400 
-                           focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition"
+                  className={`w-full pl-12 pr-4 py-4 bg-gray-50 border rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+                    errors.confirmPassword
+                      ? "border-red-500"
+                      : "border-gray-300"
+                  }`}
                 />
+                {errors.confirmPassword && (
+                  <p className="text-red-500 text-xs mt-1">
+                    {errors.confirmPassword}
+                  </p>
+                )}
               </div>
             </div>
 
-            {/* Create Account Button */}
             <button
               type="submit"
-              className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold text-lg py-4 rounded-xl transition duration-200 shadow-md"
+              disabled={isLoading}
+              className="w-full bg-blue-600 hover:bg-blue-700 disabled:bg-blue-400 text-white font-semibold text-lg py-4 rounded-xl transition duration-200 shadow-md"
             >
-              Create Account
+              {isLoading ? "Creating Account..." : "Create Account"}
             </button>
           </form>
 
-          {/* Sign In Link */}
           <p className="mt-8 text-center text-gray-600">
             Already have an account?{" "}
             <Link
@@ -166,7 +339,6 @@ export default function DocCreateAccount() {
             </Link>
           </p>
 
-          {/* Back to Home */}
           <div className="mt-6 text-center">
             <Link to="/" className="text-blue-600 font-medium hover:underline">
               Back to Home
@@ -175,10 +347,10 @@ export default function DocCreateAccount() {
         </div>
       </div>
 
-      {/* RIGHT SIDE - Background Image */}
+      {/* RIGHT SIDE - Image */}
       <div className="hidden md:block flex-1 relative overflow-hidden">
         <img
-          src={assets.docimg} // Replace with actual doctor image
+          src={assets.docimg}
           alt="Professional Doctor"
           className="absolute inset-0 w-full h-full object-cover rounded-l-3xl"
         />
