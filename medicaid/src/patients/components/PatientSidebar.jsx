@@ -1,5 +1,5 @@
-// src/components/patient/PatientSidebar.jsx
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router"; // ← added useNavigate
+import { useAuth } from "../../contextapi/AuthContext"; // ← added
 import {
   Home,
   MessageCircle,
@@ -14,17 +14,20 @@ import {
 } from "lucide-react";
 
 export default function PatientSidebar() {
+  const { logout } = useAuth(); // ← get logout function
+  const navigate = useNavigate(); // ← for redirect after logout
+
+  const handleLogout = () => {
+    logout(); // clears user + localStorage
+    navigate("/"); // or "/patlogin" if you prefer
+  };
+
   const menuItems = [
     { icon: Home, label: "Dashboard", to: "/patients-dashboard" },
-    {
-      icon: MessageCircle,
-      label: "Messages",
-      to: "/patient-messages-page",
-    }, // Using Messages page as proxy for now (see note below)
-    // { icon: FileText, label: "Messages", to: "/patient-messages-page" },
-    { icon: Clock, label: "Prescription", to: "/patients-prescription-page" }, // Note: This route is missing — see fix below
-    { icon: Heart, label: "Medical History", to: "/patients-medical-history" }, // Points to MainMedHistory
-    { icon: Clock, label: "Appointments", to: "/patient-appointments-page" }, // This is doctor view — might want a patient version
+    { icon: MessageCircle, label: "Messages", to: "/patient-messages-page" },
+    { icon: Clock, label: "Prescription", to: "/patients-prescription-page" },
+    { icon: Heart, label: "Medical History", to: "/patients-medical-history" },
+    { icon: Clock, label: "Appointments", to: "/patient-appointments-page" },
     { icon: Phone, label: "Emergency contacts", to: "/emergecy-contact-card" },
     { icon: Bell, label: "Notifications", to: "/pateint-notification-page" },
     {
@@ -32,8 +35,8 @@ export default function PatientSidebar() {
       label: "Documentation",
       to: "/patient-documentation-page",
     },
-    { icon: User, label: "Profile", to: "/Profile-settings-page" }, // Route exists, but path has uppercase — better to normalize
-    { icon: LogOut, label: "Logout", to: "/" }, // Redirect to role selection or login
+    { icon: User, label: "Profile", to: "/Profile-settings-page" },
+    // Logout is now a button, not a Link
   ];
 
   return (
@@ -54,17 +57,24 @@ export default function PatientSidebar() {
             <li key={i}>
               <Link
                 to={item.to}
-                className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg transition ${
-                  item.active
-                    ? "bg-white text-blue-900 font-medium"
-                    : "hover:bg-blue-800"
-                }`}
+                className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg transition hover:bg-blue-800`}
               >
                 <item.icon className="w-5 h-5" />
                 <span>{item.label}</span>
               </Link>
             </li>
           ))}
+
+          {/* Logout – separate because it needs onClick */}
+          <li>
+            <button
+              onClick={handleLogout}
+              className="w-full flex items-center gap-3 px-4 py-3 rounded-lg transition hover:bg-blue-800 text-left"
+            >
+              <LogOut className="w-5 h-5" />
+              <span>Logout</span>
+            </button>
+          </li>
         </ul>
       </nav>
     </div>

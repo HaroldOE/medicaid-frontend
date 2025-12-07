@@ -1,16 +1,46 @@
-import { Lock, Mail } from "lucide-react";
+import { Lock, Mail, Loader2 } from "lucide-react";
 import { useState } from "react";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
+import { useAuth } from "../contextapi/AuthContext";
 import assets from "../assets/assets";
 
 function PatLogin() {
+  const { loginPatient } = useAuth();
+  const navigate = useNavigate();
+
   const [formData, setFormData] = useState({
     email: "",
     password: "",
   });
 
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
+
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setError("");
+
+    if (!formData.email || !formData.password) {
+      setError("Please enter both email and password.");
+      return;
+    }
+
+    setLoading(true);
+
+    try {
+      const data = await loginPatient(formData.email, formData.password);
+
+      // Redirect based on role
+      navigate("/patients-dashboard");
+    } catch (err) {
+      setError(err.message || "Login failed. Please try again.");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -27,85 +57,78 @@ function PatLogin() {
             />
           </div>
 
-          {/* Welcome Text */}
           <h2 className="text-3xl font-bold text-gray-900 text-center mb-2">
-            Welcome Back Patient
+            Welcome Back
           </h2>
           <p className="text-lg text-gray-600 text-center mb-10">
             Sign in to your account
           </p>
 
+          {/* Error Message */}
+          {error && (
+            <div className="mb-6 p-4 bg-red-100 border border-red-300 text-red-800 rounded-xl text-center font-medium">
+              {error}
+            </div>
+          )}
+
           {/* Form */}
-          <form className="space-y-6">
-            {/* Email / Phone Input */}
+          <form onSubmit={handleSubmit} className="space-y-6">
+            {/* Email */}
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">
                 Email or Phone Number
               </label>
               <div className="relative">
-                <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-                  <Mail className="h-5 w-5 text-gray-400" />
-                </div>
+                <Mail className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400" />
                 <input
                   type="text"
                   name="email"
                   value={formData.email}
                   onChange={handleChange}
                   placeholder="enter email or phone number"
-                  className="w-full pl-12 pr-4 py-4 bg-gray-50 border border-gray-300 rounded-xl text-gray-700 placeholder-gray-400 
-                           focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition"
+                  disabled={loading}
+                  className="w-full pl-12 pr-4 py-4 bg-gray-50 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500"
                 />
               </div>
             </div>
 
-            {/* Password Input */}
+            {/* Password */}
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">
                 Password
               </label>
               <div className="relative">
-                <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-                  <Lock className="h-5 w-5 text-gray-400" />
-                </div>
+                <Lock className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400" />
                 <input
                   type="password"
                   name="password"
                   value={formData.password}
                   onChange={handleChange}
                   placeholder="••••••••"
-                  className="w-full pl-12 pr-4 py-4 bg-gray-50 border border-gray-300 rounded-xl text-gray-700 placeholder-gray-400 
-                           focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition"
+                  disabled={loading}
+                  className="w-full pl-12 pr-4 py-4 bg-gray-50 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500"
                 />
               </div>
-            </div>
-
-            {/* Remember Me & Forgot Password */}
-            <div className="flex items-center justify-between text-sm">
-              <label className="flex items-center text-gray-600">
-                <input
-                  type="checkbox"
-                  className="mr-2 rounded text-blue-600 focus:ring-blue-500"
-                />
-                <span>Remember Me</span>
-              </label>
-              <Link
-                to="/patpassreset"
-                className="text-blue-600 hover:underline font-medium"
-              >
-                Forgot Password?
-              </Link>
             </div>
 
             {/* Sign In Button */}
             <button
               type="submit"
-              className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold text-lg py-4 rounded-xl transition duration-200 shadow-md"
+              disabled={loading}
+              className="w-full bg-blue-600 hover:bg-blue-700 disabled:bg-blue-400 text-white font-semibold text-lg py-4 rounded-xl flex items-center justify-center gap-3"
             >
-              Sign in
+              {loading ? (
+                <>
+                  <Loader2 className="animate-spin h-5 w-5" />
+                  Signing in...
+                </>
+              ) : (
+                "Sign in"
+              )}
             </button>
           </form>
 
-          {/* Sign Up Link */}
+          {/* Links */}
           <p className="mt-8 text-center text-gray-600">
             Don't have an account?{" "}
             <Link
@@ -116,7 +139,6 @@ function PatLogin() {
             </Link>
           </p>
 
-          {/* Back to Home */}
           <div className="mt-6 text-center">
             <Link to="/" className="text-blue-600 font-medium hover:underline">
               Back to Home
@@ -128,11 +150,10 @@ function PatLogin() {
       {/* RIGHT SIDE - Image */}
       <div className="hidden md:block flex-1 relative overflow-hidden">
         <img
-          src={assets.userCreate} // Make sure this image matches the one in the screenshot
-          alt="Nurse assisting patient"
+          src={assets.userCreate}
+          alt="Healthcare professional"
           className="absolute inset-0 w-full h-full object-cover rounded-l-3xl"
         />
-        {/* Optional overlay for better text readability if needed in future */}
         <div className="absolute inset-0 bg-gradient-to-r from-transparent to-black/10 rounded-l-3xl"></div>
       </div>
     </div>

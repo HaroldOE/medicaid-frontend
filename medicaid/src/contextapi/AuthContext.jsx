@@ -57,6 +57,23 @@ export const AuthProvider = ({ children }) => {
     return data;
   };
 
+  const loginPatient = async (email, password) => {
+    const res = await fetch(`${API}/api/auth/patient-login`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email, password }),
+    });
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.message || "Login failed 401");
+
+    setUser({ ...data.user, token: data.token });
+    localStorage.setItem(
+      "user",
+      JSON.stringify({ ...data.user, token: data.token })
+    );
+    return data;
+  };
+
   const logout = () => {
     setUser(null);
     localStorage.removeItem("user");
@@ -64,7 +81,15 @@ export const AuthProvider = ({ children }) => {
 
   return (
     <AuthContext.Provider
-      value={{ user, login, logout, register, registerPatient, loading }}
+      value={{
+        user,
+        login,
+        logout,
+        loginPatient,
+        register,
+        registerPatient,
+        loading,
+      }}
     >
       {children}
     </AuthContext.Provider>
