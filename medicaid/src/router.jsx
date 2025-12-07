@@ -26,6 +26,11 @@ import Login from "./patients/pages/Login";
 import CreateAccount from "./layouts/CreatAccount";
 import DocLogin from "./layouts/DocLogin";
 import DocCreateAccount from "./layouts/DocCreateAccount";
+import AdminDashboard from "./Admin/pages/AdminDashboard";
+import UserManagementPage from "./Admin/pages/UserManagementPage";
+import DoctorManagementPage from "./Admin/pages/DoctorManagementPage";
+import PlatformAnalytics from "./Admin/pages/PlatformAnalytics";
+import EmergencyMonitorPage from "./Admin/pages/EmergencyMonitorPage";
 
 const AppRouter = () => {
   return (
@@ -105,6 +110,11 @@ const AppRouter = () => {
         />
         <Route path="emergecy-contact-card" element={<EmergecyContactCard />} />
         <Route path="patients-medical-history" element={<MainMedHistory />} />
+        <Route path="admin-dashboard" element={<AdminDashboard/>}/>
+        <Route path="user-management" element={<UserManagementPage/>}/>
+        <Route path="doctor-management" element={<DoctorManagementPage />} />
+        <Route path="Platform-Analytics" element={<PlatformAnalytics />} />
+        <Route path="Emergency-Monitor-Page" element={<EmergencyMonitorPage/>}/>
       </Routes>
     </BrowserRouter>
   );
