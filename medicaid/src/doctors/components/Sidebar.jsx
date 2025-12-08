@@ -1,3 +1,6 @@
+import { Link, useNavigate } from "react-router";
+import { useAuth } from "../../contextapi/AuthContext";
+
 import {
   Home,
   Users,
@@ -12,6 +15,13 @@ import {
 } from "lucide-react";
 
 export default function Sidebar() {
+  const { logout } = useAuth(); // ← get logout function
+  const navigate = useNavigate(); // ← for redirect after logout
+
+  const handleLogout = () => {
+    logout(); // clears user + localStorage
+    navigate("/"); // or "/patlogin" if you prefer
+  };
   return (
     <aside className="w-64 bg-slate-900 text-white flex flex-col h-screen">
       <div className="p-6 border-b border-slate-800">
@@ -27,72 +37,72 @@ export default function Sidebar() {
       </div>
 
       <nav className="flex-1 px-4 py-4">
-        <a
-          href="#"
+        <Link
+          to="/doctor-dashboard"
           className="flex items-center gap-3 px-4 py-3 bg-blue-700 rounded-lg mb-1"
         >
           <Home className="w-5 h-5" /> Dashboard
-        </a>
-        <a
-          href="#"
+        </Link>
+        <Link
+          to="/doctor-patient-dashboard"
           className="flex items-center gap-3 px-4 py-3 text-slate-300 hover:bg-slate-800 rounded-lg mb-1"
         >
           <Users className="w-5 h-5" /> My Patients
-        </a>
-        <a
-          href="#"
+        </Link>
+        <Link
+          to="/doctors-consultation-page"
           className="flex items-center gap-3 px-4 py-3 text-slate-300 hover:bg-slate-800 rounded-lg mb-1"
         >
           <MessageSquare className="w-5 h-5" /> Consultations
-        </a>
-        <a
-          href="#"
+        </Link>
+        <Link
+          to="/doctors-message-page"
           className="flex items-center gap-3 px-4 py-3 text-slate-300 hover:bg-slate-800 rounded-lg mb-1"
         >
           <MessageCircle className="w-5 h-5" /> Messages
-        </a>
-        <a
-          href="#"
+        </Link>
+        <Link
+          to="/doctors-appointments-page"
           className="flex items-center gap-3 px-4 py-3 text-slate-300 hover:bg-slate-800 rounded-lg mb-1"
         >
           <Calendar className="w-5 h-5" /> Appointments
-        </a>
-        <a
-          href="#"
+        </Link>
+        <Link
+          to="/doctors-prescriptions-page"
           className="flex items-center gap-3 px-4 py-3 text-slate-300 hover:bg-slate-800 rounded-lg mb-1"
         >
           <FileText className="w-5 h-5" /> Prescription
-        </a>
+        </Link>
 
         <div className="my-5 border-t border-slate-700" />
 
-        <a
-          href="#"
+        <Link
+          to="/doctor-analytics-page"
           className="flex items-center gap-3 px-4 py-3 text-slate-300 hover:bg-slate-800 rounded-lg mb-1"
         >
           <BarChart3 className="w-5 h-5" /> Analytics
-        </a>
-        <a
-          href="#"
+        </Link>
+        <Link
+          to="/doctor-profile-page"
           className="flex items-center gap-3 px-4 py-3 text-slate-300 hover:bg-slate-800 rounded-lg mb-1"
         >
           <User className="w-5 h-5" /> Profile
-        </a>
-        <a
-          href="#"
+        </Link>
+        <Link
+          to="/doctor-documentation-page"
           className="flex items-center gap-3 px-4 py-3 text-slate-300 hover:bg-slate-800 rounded-lg mb-1"
         >
           <FileBox className="w-5 h-5" /> Documentation
-        </a>
+        </Link>
       </nav>
 
       <div className="p-6 border-t border-slate-800">
-        <a
-          href="#"
+        <button
+          onClick={handleLogout}
           className="flex items-center gap-3 text-red-400 hover:text-red-300"
         >
-          <LogOut className="w-5 h-5" /> Logout
-        </a>
+          <LogOut to="/" className="w-5 h-5" /> Logout
+        </button>
       </div>
     </aside>
   );

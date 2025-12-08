@@ -1,4 +1,5 @@
-// src/components/patient/PatientSidebar.jsx
+import { Link, useNavigate } from "react-router"; // ← added useNavigate
+import { useAuth } from "../../contextapi/AuthContext"; // ← added
 import {
   Home,
   MessageCircle,
@@ -13,18 +14,29 @@ import {
 } from "lucide-react";
 
 export default function PatientSidebar() {
+  const { logout } = useAuth(); // ← get logout function
+  const navigate = useNavigate(); // ← for redirect after logout
+
+  const handleLogout = () => {
+    logout(); // clears user + localStorage
+    navigate("/"); // or "/patlogin" if you prefer
+  };
+
   const menuItems = [
-    { icon: Home, label: "Dashboard" },
-    { icon: MessageCircle, label: "Consultation" },
-    { icon: FileText, label: "Messages" },
-    { icon: Clock, label: "Prescription", active: true },
-    { icon: Heart, label: "Medical History" },
-    { icon: Clock, label: "Appointments" },
-    { icon: Phone, label: "Emergency contacts" },
-    { icon: Bell, label: "Notifications" },
-    { icon: BookOpen, label: "Documentation" },
-    { icon: User, label: "Profile" },
-    { icon: LogOut, label: "Logout" },
+    { icon: Home, label: "Dashboard", to: "/patients-dashboard" },
+    { icon: MessageCircle, label: "Messages", to: "/patient-messages-page" },
+    { icon: Clock, label: "Prescription", to: "/patients-prescription-page" },
+    { icon: Heart, label: "Medical History", to: "/patients-medical-history" },
+    { icon: Clock, label: "Appointments", to: "/patient-appointments-page" },
+    { icon: Phone, label: "Emergency contacts", to: "/emergecy-contact-card" },
+    { icon: Bell, label: "Notifications", to: "/pateint-notification-page" },
+    {
+      icon: BookOpen,
+      label: "Documentation",
+      to: "/patient-documentation-page",
+    },
+    { icon: User, label: "Profile", to: "/Profile-settings-page" },
+    // Logout is now a button, not a Link
   ];
 
   return (
@@ -43,18 +55,26 @@ export default function PatientSidebar() {
         <ul className="space-y-1">
           {menuItems.map((item, i) => (
             <li key={i}>
-              <button
-                className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg transition ${
-                  item.active
-                    ? "bg-white text-blue-900 font-medium"
-                    : "hover:bg-blue-800"
-                }`}
+              <Link
+                to={item.to}
+                className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg transition hover:bg-blue-800`}
               >
                 <item.icon className="w-5 h-5" />
                 <span>{item.label}</span>
-              </button>
+              </Link>
             </li>
           ))}
+
+          {/* Logout – separate because it needs onClick */}
+          <li>
+            <button
+              onClick={handleLogout}
+              className="w-full flex items-center gap-3 px-4 py-3 rounded-lg transition hover:bg-blue-800 text-left"
+            >
+              <LogOut className="w-5 h-5" />
+              <span>Logout</span>
+            </button>
+          </li>
         </ul>
       </nav>
     </div>
