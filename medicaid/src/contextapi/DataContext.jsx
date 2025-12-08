@@ -113,7 +113,6 @@ export const DataProvider = ({ children }) => {
         loading,
         error,
         inventory,
-        consultations,
         setError,
         fetchData,
         createRecord,
