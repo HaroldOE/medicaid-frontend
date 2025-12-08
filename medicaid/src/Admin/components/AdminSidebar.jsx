@@ -1,5 +1,6 @@
 // components/AdminSidebar.jsx
 import React from 'react';
+import { useAuth } from "../../contextapi/AuthContext"; 
 import { 
   Home, 
   Users, 
@@ -13,16 +14,23 @@ import {
 } from 'lucide-react';
 
 const navigation = [
-  { name: 'Dashboard', icon: Home, href: '/admin', current: true },
-  { name: 'User Management', icon: Users, href: '/admin/users', current: false },
-  { name: 'Doctor Management', icon: Stethoscope, href: '/admin/doctors', current:false },
-  { name: 'Analytics', icon: BarChart2, href: '/admin/analytics', current: false },
-  { name: 'Emergency Monitor', icon: AlertCircle, href: '/admin/emergency', current: false },
-  { name: 'System Health', icon: Server, href: '/admin/system', current: false },
+  { name: 'Dashboard', icon: Home, href: '/admin-dashboard', current: true },
+  { name: 'User Management', icon: Users, href: '/user-management', current: false },
+  { name: 'Doctor Management', icon: Stethoscope, href: '/doctor-management', current: false },
+  { name: 'Analytics', icon: BarChart2, href: '/platform-analytics', current: false },
+  { name: 'Emergency Monitor', icon: AlertCircle, href: '/emergency-monitor-page', current: false },
+  { name: 'System Health', icon: Server, href: '/admin-system-health', current: false },
   { name: 'Settings', icon: Settings, href: '/admin/settings', current: false },
 ];
 
 const AdminSidebar = () => {
+  const { logout } = useAuth();
+
+  const handleLogout = () => {
+    logout();
+    window.location.href = "/"; 
+  };
+
   return (
     <div className="w-64 bg-blue-900 text-white h-screen flex flex-col">
       {/* Logo & Title */}
@@ -58,14 +66,15 @@ const AdminSidebar = () => {
         })}
       </nav>
 
+      {/* Logout */}
       <div className="p-4 border-t border-blue-800">
-        <a
-          href="/logout"
-          className="flex items-center px-4 py-3 text-sm font-medium text-rose-300 hover:bg-rose-500/20 hover:text-rose-200 rounded-lg transition-all duration-300 group"
+        <button
+          onClick={handleLogout}
+          className="flex items-center gap-3 text-red-400 hover:text-red-300"
         >
-          <LogOut className="h-5 w-5 mr-3 group-hover:rotate-180 transition-transform duration-500" />
-          Logout
-        </a>
+          <LogOut className="w-5 h-5" />
+          <span>Logout</span>
+        </button>
       </div>
     </div>
   );

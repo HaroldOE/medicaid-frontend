@@ -31,6 +31,7 @@ import UserManagementPage from "./Admin/pages/UserManagementPage";
 import DoctorManagementPage from "./Admin/pages/DoctorManagementPage";
 import PlatformAnalytics from "./Admin/pages/PlatformAnalytics";
 import EmergencyMonitorPage from "./Admin/pages/EmergencyMonitorPage";
+import AdminSystemHealth from "./Admin/pages/AdminSystemHealth";
 
 const AppRouter = () => {
   return (
@@ -115,6 +116,7 @@ const AppRouter = () => {
         <Route path="doctor-management" element={<DoctorManagementPage />} />
         <Route path="Platform-Analytics" element={<PlatformAnalytics />} />
         <Route path="Emergency-Monitor-Page" element={<EmergencyMonitorPage/>}/>
+        <Route path="admin-system-health" element={<AdminSystemHealth/>}/>
       </Routes>
     </BrowserRouter>
   );
