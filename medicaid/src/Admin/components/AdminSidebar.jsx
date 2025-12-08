@@ -58,7 +58,6 @@ const AdminSidebar = () => {
         })}
       </nav>
 
-      {/* Logout */}
       <div className="p-4 border-t border-blue-800">
         <a
           href="/logout"
