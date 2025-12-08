@@ -35,12 +35,12 @@ export default function UserManagementPage() {
     <>
       <div className="flex min-h-screen bg-gray-50">
         <AdminSidebar />
-        <div className="flex-1 ml-15 mr-15 p-4"> {/* 减少外层内边距 */}
-          <div className="max-w-7xl mx-auto px-2 sm:px-4 lg:px-6 py-4"> {/* 减少内边距 */}
+        <div className="flex-1 ml-15 mr-15 p-4"> 
+          <div className="max-w-7xl mx-auto px-2 sm:px-4 lg:px-6 py-4">
             <h1 className="text-2xl font-bold text-gray-900 mb-1">User Management</h1>
             <p className="text-xs sm:text-sm text-gray-600 mb-4">Manage all platform users and their permissions</p>
 
-            <div className="mb-4"> {/* 减少组件间距 */}
+            <div className="mb-4"> 
               <SearchAndFilterBar
                 onAddUser={openDrawer}
                 onSearch={setSearchParams}

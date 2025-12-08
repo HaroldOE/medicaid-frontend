@@ -45,7 +45,7 @@ export const DataProvider = ({ children }) => {
   const uploadExcel = async (file) => {
     const formData = new FormData();
     formData.append("file", file);
-    const res = await fetch(`${API}/import/upload-medichain`, {
+    const res = await fetch(`${API}/api/data/upload`, {
       method: "POST",
       body: formData,
     });
@@ -55,7 +55,7 @@ export const DataProvider = ({ children }) => {
   };
 
   const downloadExcel = async () => {
-    const res = await fetch(`${API}/export/data`);
+    const res = await fetch(`${API}/api/data/download`);
     if (!res.ok) throw new Error("Export failed");
     const blob = await res.blob();
     const url = window.URL.createObjectURL(blob);
