@@ -1,4 +1,5 @@
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
+import { useAuth } from "../../contextapi/AuthContext";
 
 import {
   Home,
@@ -14,6 +15,13 @@ import {
 } from "lucide-react";
 
 export default function Sidebar() {
+  const { logout } = useAuth(); // ← get logout function
+  const navigate = useNavigate(); // ← for redirect after logout
+
+  const handleLogout = () => {
+    logout(); // clears user + localStorage
+    navigate("/"); // or "/patlogin" if you prefer
+  };
   return (
     <aside className="w-64 bg-slate-900 text-white flex flex-col h-screen">
       <div className="p-6 border-b border-slate-800">
@@ -89,12 +97,12 @@ export default function Sidebar() {
       </nav>
 
       <div className="p-6 border-t border-slate-800">
-        <Link
-          to="/"
+        <button
+          onClick={handleLogout}
           className="flex items-center gap-3 text-red-400 hover:text-red-300"
         >
           <LogOut to="/" className="w-5 h-5" /> Logout
-        </Link>
+        </button>
       </div>
     </aside>
   );

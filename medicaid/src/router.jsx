@@ -22,7 +22,7 @@ import EmergecyContactCard from "./patients/pages/EmmergencyContactPAge";
 // import PatientMedHistory from "./patients/pages/PatientMedHistory";
 import PatientDashboard from "./patients/pages/PatientsDashboards";
 import MainMedHistory from "./patients/pages/MainMedHistory";
-import Login from "./patients/pages/Login";
+import Login from "./layouts/Login";
 import CreateAccount from "./layouts/CreatAccount";
 import DocLogin from "./layouts/DocLogin";
 import DocCreateAccount from "./layouts/DocCreateAccount";
