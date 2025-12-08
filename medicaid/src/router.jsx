@@ -98,11 +98,11 @@ const AppRouter = () => {
         />
 
         <Route
-        path="payment-page" element={<PaymentPage />}
+        path="patient-appointments-page" element={<PaymentPage />}
         />
-        
+
         <Route
-          path="patient-appointments-page"
+          path="make-appointments-page"
           element={<PatientAppointmentsPage />}
         />
         <Route
