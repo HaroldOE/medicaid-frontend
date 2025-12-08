@@ -19,6 +19,7 @@ import ProfileSettingsPage from "./patients/pages/ProfileSettingsPage";
 import PateintNotificationPage from "./patients/pages/PatientNotificationsPage";
 import PatientDocumentationPage from "./patients/pages/PatientsDocumentationPage";
 import EmergecyContactCard from "./patients/pages/EmmergencyContactPAge";
+
 // import PatientMedHistory from "./patients/pages/PatientMedHistory";
 import PatientDashboard from "./patients/pages/PatientsDashboards";
 import MainMedHistory from "./patients/pages/MainMedHistory";
@@ -26,6 +27,7 @@ import Login from "./layouts/Login";
 import CreateAccount from "./layouts/CreatAccount";
 import DocLogin from "./layouts/DocLogin";
 import DocCreateAccount from "./layouts/DocCreateAccount";
+import PaymentPage from "./patients/pages/PaymentPage";
 
 const AppRouter = () => {
   return (
@@ -105,6 +107,7 @@ const AppRouter = () => {
         />
         <Route path="emergecy-contact-card" element={<EmergecyContactCard />} />
         <Route path="patients-medical-history" element={<MainMedHistory />} />
+        <Route path="payment-page" element={<PaymentPage />} />
       </Routes>
     </BrowserRouter>
   );
