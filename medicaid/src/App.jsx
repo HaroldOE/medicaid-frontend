@@ -11,6 +11,7 @@ import DocumentationPage from "./doctors/pages/DocumentatiomPage";
 import PatientPrescriptionsPage from "./patients/pages/PatientsPrescriptionPage";
 import PatientConsultationPage from "./patients/pages/PatientsConsultationPage";
 import PatientMessagesPage from "./patients/pages/PatientsMessagesPage";
+import AccountInfoForm from "./patients/components/AccountInfoForm";
 
 function App() {
   return (
@@ -27,7 +28,8 @@ function App() {
       {/* <DocumentationPage /> */}
       {/* <PatientPrescriptionsPage /> */}
       {/* <PatientConsultationPage /> */}
-      <PatientMessagesPage />
+      {/* <PatientMessagesPage /> */}
+      <AccountInfoForm/>
     </>
   );
 }
