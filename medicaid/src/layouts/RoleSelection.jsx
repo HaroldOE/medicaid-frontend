@@ -30,7 +30,7 @@ export default function RoleSelection() {
           </p>
 
           <Link
-            to={"/patlogin"}
+            to={"/login"}
             className="w-full bg-blue-700 hover:bg-blue-800 text-white text-lg py-6 rounded-2xl font-semibold transition"
           >
             Continue →
@@ -50,7 +50,7 @@ export default function RoleSelection() {
           </p>
 
           <Link
-            to={"/doclogin"}
+            to={"/doctors-login"}
             className="w-full bg-teal-500 hover:bg-teal-600 text-white text-lg py-6 rounded-2xl font-semibold transition"
           >
             Continue →

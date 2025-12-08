@@ -1,6 +1,6 @@
 // src/App.jsx
 import { useState } from "react";
-import Sidebar from "../components/Sidebar";
+import Sidebar from "../components/PatientSidebar";
 import AppointmentCard from "../components/AppointmentsCard";
 import ScheduleForm from "../components/ScheduleForm";
 import { ArrowLeft } from "lucide-react";
