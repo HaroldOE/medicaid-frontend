@@ -93,10 +93,16 @@ const AppRouter = () => {
 
         <Route
           path="patient-consultation-page"
-          element={<PatientConsultationPage />}
+          element={<PatientConsultationPage />
+          }
         />
+
         <Route
-          path="patient-appointments-page"
+        path="patient-appointments-page" element={<PaymentPage />}
+        />
+
+        <Route
+          path="make-appointments-page"
           element={<PatientAppointmentsPage />}
         />
         <Route
@@ -124,7 +130,7 @@ const AppRouter = () => {
         <Route path="Emergency-Monitor-Page" element={<EmergencyMonitorPage/>}/>
         <Route path="admin-system-health" element={<AdminSystemHealth/>}/>
         <Route path="admin-setting-page" element={<AdminSettingsPage/>}/>
-        <Route path="payment-page" element={<PaymentPage />} />
+        {/* <Route path="payment-page" element={<PaymentPage />} /> */}
       </Routes>
     </BrowserRouter>
   );
