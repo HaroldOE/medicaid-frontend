@@ -20,7 +20,7 @@ const navigation = [
   { name: 'Analytics', icon: BarChart2, href: '/platform-analytics', current: false },
   { name: 'Emergency Monitor', icon: AlertCircle, href: '/emergency-monitor-page', current: false },
   { name: 'System Health', icon: Server, href: '/admin-system-health', current: false },
-  { name: 'Settings', icon: Settings, href: '/admin/settings', current: false },
+  { name: 'Settings', icon: Settings, href: '/admin-setting-page', current: false },
 ];
 
 const AdminSidebar = () => {

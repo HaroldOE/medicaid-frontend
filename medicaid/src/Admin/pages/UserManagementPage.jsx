@@ -1,12 +1,9 @@
-//import React, { useState } from "react";
+// UserManagementPage.jsx
+import React, { useState, useMemo } from "react";
 import AdminSidebar from "../components/AdminSidebar";        
 import SearchAndFilterBar from "../components/SearchAndFilterBar";
 import UserTable from "../components/UserTable";
 import AddUserDrawer from "../components/AddUserDrawer";
-
-// UserManagementPage.jsx
-import React, { useState, useMemo } from "react";
-
 
 export default function UserManagementPage() {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
@@ -38,18 +35,20 @@ export default function UserManagementPage() {
     <>
       <div className="flex min-h-screen bg-gray-50">
         <AdminSidebar />
-        <div className="flex-1 ml-64">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-            <h1 className="text-3xl font-bold text-gray-900 mb-2">User Management</h1>
-            <p className="text-sm text-gray-600 mb-8">Manage all platform users and their permissions</p>
+        <div className="flex-1 ml-15 mr-15 p-4"> {/* 减少外层内边距 */}
+          <div className="max-w-7xl mx-auto px-2 sm:px-4 lg:px-6 py-4"> {/* 减少内边距 */}
+            <h1 className="text-2xl font-bold text-gray-900 mb-1">User Management</h1>
+            <p className="text-xs sm:text-sm text-gray-600 mb-4">Manage all platform users and their permissions</p>
 
-            <SearchAndFilterBar
-              onAddUser={openDrawer}
-              onSearch={setSearchParams}   // This receives search + role
-            />
+            <div className="mb-4"> {/* 减少组件间距 */}
+              <SearchAndFilterBar
+                onAddUser={openDrawer}
+                onSearch={setSearchParams}
+              />
+            </div>
 
-            <div className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
-              <UserTable users={filteredUsers} />   {/* Pass filtered data */}
+            <div className="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden">
+              <UserTable users={filteredUsers} />
             </div>
           </div>
         </div>
@@ -59,4 +58,3 @@ export default function UserManagementPage() {
     </>
   );
 }
-
