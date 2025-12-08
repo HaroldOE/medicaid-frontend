@@ -15,6 +15,7 @@ export const DataProvider = ({ children }) => {
   const [appointments, setAppointments] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const [inventory, setInventory] = useState([]);
 
   const fetchData = async (endpoint, setter) => {
     setLoading(true);
@@ -68,6 +69,40 @@ export const DataProvider = ({ children }) => {
     window.URL.revokeObjectURL(url);
   };
 
+  // src/contextapi/DataContext.jsx — add these inside DataProvider
+
+  const fetchInventory = async () => {
+    setLoading(true);
+    try {
+      const res = await fetch(`${API}/api/inventory`);
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.message);
+      setInventory(data);
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const fetchMyConsultations = async () => {
+    setLoading(true);
+    try {
+      const token = user?.token;
+      const res = await fetch(`${API}/api/consultations/my-consultations`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.message);
+      setConsultations(data);
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setLoading(false);
+    }
+  };
   return (
     <DataContext.Provider
       value={{
@@ -77,6 +112,8 @@ export const DataProvider = ({ children }) => {
         appointments,
         loading,
         error,
+        inventory,
+        consultations,
         setError,
         fetchData,
         createRecord,
@@ -86,6 +123,8 @@ export const DataProvider = ({ children }) => {
         setDoctors,
         setConsultations,
         setAppointments,
+        fetchInventory,
+        fetchMyConsultations,
       }}
     >
       {children}
