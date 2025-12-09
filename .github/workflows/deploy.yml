@@ -3,9 +3,14 @@ on:
   push:
     branches: [ main ]
 
+permissions:
+  contents: read
+  actions: write
+
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout repo
         uses: actions/checkout@v4
@@ -32,9 +37,10 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ${{ secrets.AWS_REGION }}
 
-      - name: Debug: show dist contents
+      - name: Debug show dist contents
         run: |
           echo "WORKDIR: $(pwd)"
+          ls -la medicaid || true
           ls -la medicaid/dist || true
           du -sh medicaid/dist || true
 
@@ -49,10 +55,24 @@ jobs:
             exit 1
           fi
 
+          # sync everything except index.html with long caching
           aws s3 sync "${BUILD_DIR}/" "s3://${S3_BUCKET}/" \
             --delete \
             --exclude "index.html" \
             --cache-control "public, max-age=31536000, immutable"
 
+          # upload index.html with no-cache so new deploys are picked up immediately
           aws s3 cp "${BUILD_DIR}/index.html" "s3://${S3_BUCKET}/index.html" \
             --cache-control "public, max-age=0, must-revalidate"
+
+      - name: Create CloudFront invalidation
+        if: ${{ secrets.CLOUDFRONT_DISTRIBUTION_ID != '' }}
+        env:
+          CLOUDFRONT_ID: ${{ secrets.CLOUDFRONT_DISTRIBUTION_ID }}
+        run: |
+          if [ -z "$CLOUDFRONT_ID" ]; then
+            echo "CLOUDFRONT_DISTRIBUTION_ID not set — skipping invalidation"
+            exit 0
+          fi
+          aws cloudfront create-invalidation --distribution-id "$CLOUDFRONT_ID" --paths "/*"
+
