@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 // import AppRouter from "./router";
 import DoctorsDashboard from "./doctors/pages/DoctorsDashboard";
 import MyPatientsDashboard from "./doctors/pages/MyPatientDashboard";
@@ -31,6 +32,14 @@ function App() {
       {/* <PatientMessagesPage /> */}
       {/* <DoctorSignup /> */}
        <DoctorLogin /> 
+=======
+import Router from "./router";
+// import AppContext from "./contextapi/AppContext";
+function App() {
+  return (
+    <>
+      <Router />
+>>>>>>> stephen
     </>
   );
 }
