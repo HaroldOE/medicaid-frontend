@@ -20,11 +20,12 @@ jobs:
         with:
           node-version: '20'
           cache: 'npm'
-
       - name: Install dependencies
-        run: npm ci
+        working-directory: ./medicaid
+        run: npm install
 
       - name: Build (Vite)
+        working-directory: ./medicaid
         env:
           VITE_API_BASE: ${{ secrets.FRONTEND_API_URL }}
         run: npm run build
