@@ -19,6 +19,7 @@ import ProfileSettingsPage from "./patients/pages/ProfileSettingsPage";
 import PateintNotificationPage from "./patients/pages/PatientNotificationsPage";
 import PatientDocumentationPage from "./patients/pages/PatientsDocumentationPage";
 import EmergecyContactCard from "./patients/pages/EmmergencyContactPAge";
+
 // import PatientMedHistory from "./patients/pages/PatientMedHistory";
 import PatientDashboard from "./patients/pages/PatientsDashboards";
 import MainMedHistory from "./patients/pages/MainMedHistory";
@@ -33,6 +34,7 @@ import PlatformAnalytics from "./Admin/pages/PlatformAnalytics";
 import EmergencyMonitorPage from "./Admin/pages/EmergencyMonitorPage";
 import AdminSystemHealth from "./Admin/pages/AdminSystemHealth";
 import AdminSettingsPage from "./Admin/pages/AdminSettingPage";
+import PaymentPage from "./patients/pages/PaymentPage";
 
 const AppRouter = () => {
   return (
@@ -91,10 +93,16 @@ const AppRouter = () => {
 
         <Route
           path="patient-consultation-page"
-          element={<PatientConsultationPage />}
+          element={<PatientConsultationPage />
+          }
         />
+
         <Route
-          path="patient-appointments-page"
+        path="patient-appointments-page" element={<PaymentPage />}
+        />
+
+        <Route
+          path="make-appointments-page"
           element={<PatientAppointmentsPage />}
         />
         <Route
@@ -122,6 +130,7 @@ const AppRouter = () => {
         <Route path="Emergency-Monitor-Page" element={<EmergencyMonitorPage/>}/>
         <Route path="admin-system-health" element={<AdminSystemHealth/>}/>
         <Route path="admin-setting-page" element={<AdminSettingsPage/>}/>
+        {/* <Route path="payment-page" element={<PaymentPage />} /> */}
       </Routes>
     </BrowserRouter>
   );
