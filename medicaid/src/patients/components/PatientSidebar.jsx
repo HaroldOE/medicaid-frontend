@@ -11,6 +11,7 @@ import {
   BookOpen,
   User,
   LogOut,
+  CircleAlert,
 } from "lucide-react";
 
 export default function PatientSidebar() {
@@ -24,6 +25,7 @@ export default function PatientSidebar() {
 
   const menuItems = [
     { icon: Home, label: "Dashboard", to: "/patients-dashboard" },
+    {icon: CircleAlert, label: "consultation", to: "/patient-consultation-page" },
     { icon: MessageCircle, label: "Messages", to: "/patient-messages-page" },
     { icon: Clock, label: "Prescription", to: "/patients-prescription-page" },
     { icon: Heart, label: "Medical History", to: "/patients-medical-history" },
