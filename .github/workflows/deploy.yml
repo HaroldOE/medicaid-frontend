@@ -8,26 +8,26 @@ on:
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Use Node.js 20
         uses: actions/setup-node@v4
         with:
-          node-version: 20
-          cache: npm
+          node-version: '20'
+          cache: 'npm'
 
       - name: Install dependencies
-        run: |
-          cd medicaid
-          npm install
+        run: npm ci
 
       - name: Build (Vite)
-        run: |
-          cd medicaid
-          npm run build
+        env:
+          VITE_API_BASE: ${{ secrets.FRONTEND_API_URL }}
+        run: npm run build
 
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v2
@@ -36,34 +36,16 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ${{ secrets.AWS_REGION }}
 
-      - name: Debug show dist contents
-        run: |
-          echo "WORKDIR: $(pwd)"
-          ls -la medicaid || true
-          ls -la medicaid/dist || true
-          du -sh medicaid/dist || true
-
       - name: Sync built files to S3 (set cache headers)
-        env:
-          S3_BUCKET: ${{ secrets.S3_BUCKET }}
         run: |
-          BUILD_DIR=medicaid/dist
-
-          if [ ! -d "${BUILD_DIR}" ]; then
-            echo "ERROR: build dir ${BUILD_DIR} does not exist"
-            ls -la
-            exit 1
-          fi
-
-          echo "Uploading files from ${BUILD_DIR} to s3://${S3_BUCKET}"
-
-          # Sync everything except index.html with long caching
+          BUILD_DIR=dist
+          S3_BUCKET=${{ secrets.S3_BUCKET }}
+          # sync everything except index.html with long caching
           aws s3 sync "${BUILD_DIR}/" "s3://${S3_BUCKET}/" \
             --delete \
             --exclude "index.html" \
             --cache-control "public, max-age=31536000, immutable"
-
-          # Upload index.html separately (no-cache)
+          # upload index.html with no-cache so new deploys are picked up immediately
           aws s3 cp "${BUILD_DIR}/index.html" "s3://${S3_BUCKET}/index.html" \
             --cache-control "public, max-age=0, must-revalidate"
 
@@ -71,6 +53,7 @@ jobs:
         env:
           DISTRIBUTION_ID: ${{ secrets.CLOUDFRONT_DISTRIBUTION_ID }}
         run: |
-          aws cloudfront create-invalidation \
-            --distribution-id $DISTRIBUTION_ID \
-            --paths "/*"
+          aws cloudfront create-invalidation --distribution-id "$DISTRIBUTION_ID" --paths "/*"
+
+      - name: Done - list uploaded files (short)
+        run: aws s3 ls "s3://${{ secrets.S3_BUCKET }}/" --recursive | head -n 40

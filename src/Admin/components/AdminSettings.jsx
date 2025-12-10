@@ -1,7 +1,7 @@
-import React from 'react';
-import PlatformSettings from '../components/PlatformSettings';  // 改为 ./
-import SecuritySettings from '../components/SecuritySetting';  
-import NotificationSettings from '../components/NotificationSetting';  // 改为 ./
+import React from "react";
+import PlatformSettings from "./PlatformSettings"; // 改为 ./
+import SecuritySettings from "./SecuritySetting";
+import NotificationSettings from "./NotificationSetting"; // 改为 ./
 
 const AdminSettings = () => {
   return (
@@ -20,7 +20,9 @@ const AdminSettings = () => {
                   <span className="text-blue-600 font-semibold">A</span>
                 </div>
                 <div className="ml-3">
-                  <p className="text-sm font-medium text-gray-900">Administrator</p>
+                  <p className="text-sm font-medium text-gray-900">
+                    Administrator
+                  </p>
                   <p className="text-xs text-gray-500">Super Admin</p>
                 </div>
               </div>
@@ -33,9 +35,24 @@ const AdminSettings = () => {
         {/* Quick Stats */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
           {[
-            { title: 'Total Users', value: '2,847', change: '+12%', color: 'bg-blue-500' },
-            { title: 'Active Doctors', value: '156', change: '+5%', color: 'bg-green-500' },
-            { title: 'System Uptime', value: '99.8%', change: '+0.2%', color: 'bg-purple-500' },
+            {
+              title: "Total Users",
+              value: "2,847",
+              change: "+12%",
+              color: "bg-blue-500",
+            },
+            {
+              title: "Active Doctors",
+              value: "156",
+              change: "+5%",
+              color: "bg-green-500",
+            },
+            {
+              title: "System Uptime",
+              value: "99.8%",
+              change: "+0.2%",
+              color: "bg-purple-500",
+            },
           ].map((stat, index) => (
             <div key={index} className="bg-white rounded-lg shadow p-6">
               <div className="flex items-center">
@@ -43,8 +60,12 @@ const AdminSettings = () => {
                 <div>
                   <p className="text-sm text-gray-600">{stat.title}</p>
                   <div className="flex items-baseline">
-                    <p className="text-2xl font-semibold text-gray-900">{stat.value}</p>
-                    <span className="ml-2 text-sm text-green-600">{stat.change}</span>
+                    <p className="text-2xl font-semibold text-gray-900">
+                      {stat.value}
+                    </p>
+                    <span className="ml-2 text-sm text-green-600">
+                      {stat.change}
+                    </span>
                   </div>
                 </div>
               </div>
@@ -63,16 +84,18 @@ const AdminSettings = () => {
           {/* Right Column */}
           <div className="space-y-8">
             <NotificationSettings />
-            
+
             {/* Quick Actions */}
             <div className="bg-white rounded-lg shadow p-6">
-              <h3 className="text-lg font-semibold text-gray-900 mb-4">Quick Actions</h3>
+              <h3 className="text-lg font-semibold text-gray-900 mb-4">
+                Quick Actions
+              </h3>
               <div className="space-y-3">
                 {[
-                  { label: 'View System Logs', icon: '📋' },
-                  { label: 'Backup Database', icon: '💾' },
-                  { label: 'Clear Cache', icon: '🗑️' },
-                  { label: 'Generate Reports', icon: '📊' },
+                  { label: "View System Logs", icon: "📋" },
+                  { label: "Backup Database", icon: "💾" },
+                  { label: "Clear Cache", icon: "🗑️" },
+                  { label: "Generate Reports", icon: "📊" },
                 ].map((action, index) => (
                   <button
                     key={index}
