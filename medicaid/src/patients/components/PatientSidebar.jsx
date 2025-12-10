@@ -25,6 +25,7 @@ export default function PatientSidebar() {
   const menuItems = [
     { icon: Home, label: "Dashboard", to: "/patients-dashboard" },
     { icon: MessageCircle, label: "Messages", to: "/patient-messages-page" },
+    { icon: FileText, label: "Consultation", to: "/patient-consultation-page" },
     { icon: Clock, label: "Prescription", to: "/patients-prescription-page" },
     { icon: Heart, label: "Medical History", to: "/patients-medical-history" },
     { icon: Clock, label: "Appointments", to: "/patient-appointments-page" },

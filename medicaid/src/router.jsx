@@ -11,7 +11,7 @@ import AnalyticsPage from "./doctors/pages/AnalyticsPage";
 import ProfilePage from "./doctors/pages/ProfilePage";
 import DocumentationPage from "./doctors/pages/DocumentatiomPage";
 import PatientPrescriptionsPage from "./patients/pages/PatientsPrescriptionPage";
-import PatientConsultationPage from "./patients/pages/PatientsConsultationPage";
+import PatientsConsultationPage from "./patients/pages/PatientsConsultationPage";
 import PatientMessagesPage from "./patients/pages/PatientsMessagesPage";
 import PatientMedicalHistoryPage from "./doctors/pages/PatientMedicalHistoryPage";
 import PatientAppointmentsPage from "./patients/pages/PatientAppointmentsPage";
@@ -75,7 +75,7 @@ const AppRouter = () => {
         />
         <Route
           path="doctor-patient-consultation-page"
-          element={<PatientConsultationPage />}
+          element={<PatientConsultationsPage />}
         />
         <Route path="/doctor-profile-page" element={<ProfilePage />} />
 
@@ -93,13 +93,10 @@ const AppRouter = () => {
 
         <Route
           path="patient-consultation-page"
-          element={<PatientConsultationPage />
-          }
+          element={<PatientsConsultationPage />}
         />
 
-        <Route
-        path="patient-appointments-page" element={<PaymentPage />}
-        />
+        <Route path="patient-appointments-page" element={<PaymentPage />} />
 
         <Route
           path="make-appointments-page"
@@ -122,14 +119,17 @@ const AppRouter = () => {
         <Route path="patients-medical-history" element={<MainMedHistory />} />
 
         {/* ======================= ADMIN DASHBOARD====================================== */}
-        
-        <Route path="admin-dashboard" element={<AdminDashboard/>}/>
-        <Route path="user-management" element={<UserManagementPage/>}/>
+
+        <Route path="admin-dashboard" element={<AdminDashboard />} />
+        <Route path="user-management" element={<UserManagementPage />} />
         <Route path="doctor-management" element={<DoctorManagementPage />} />
         <Route path="Platform-Analytics" element={<PlatformAnalytics />} />
-        <Route path="Emergency-Monitor-Page" element={<EmergencyMonitorPage/>}/>
-        <Route path="admin-system-health" element={<AdminSystemHealth/>}/>
-        <Route path="admin-setting-page" element={<AdminSettingsPage/>}/>
+        <Route
+          path="Emergency-Monitor-Page"
+          element={<EmergencyMonitorPage />}
+        />
+        <Route path="admin-system-health" element={<AdminSystemHealth />} />
+        <Route path="admin-setting-page" element={<AdminSettingsPage />} />
         {/* <Route path="payment-page" element={<PaymentPage />} /> */}
       </Routes>
     </BrowserRouter>

@@ -1,14 +1,13 @@
 // src/context/AuthContext.jsx
 // top of file (after imports)
-const API = import.meta.env.VITE_API_BASE || "https://api.medichainafrica.com/api";
 
 import { createContext, useContext, useState, useEffect } from "react";
 
 const AuthContext = createContext();
+const API = import.meta.env.VITE_API_URL;
+console.log(API);
 
 export const useAuth = () => useContext(AuthContext);
-
-
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
@@ -21,7 +20,7 @@ export const AuthProvider = ({ children }) => {
   }, []);
 
   const register = async (formData) => {
-      const res = await fetch(`${API}/auth/login`, {
+    const res = await fetch(`${API}/api/doctors`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(formData),
@@ -33,7 +32,7 @@ export const AuthProvider = ({ children }) => {
 
   // NEW: Patient Registration
   const registerPatient = async (formData) => {
-    const res = await fetch(`${API}/auth/patient-login`, {
+    const res = await fetch(`${API}/api/patients`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(formData),
@@ -48,7 +47,7 @@ export const AuthProvider = ({ children }) => {
   };
 
   const login = async (email, password) => {
-    const res = await fetch(`${API}/auth/login`, {
+    const res = await fetch(`${API}/api/auth/login`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ email, password }),
@@ -61,7 +60,7 @@ export const AuthProvider = ({ children }) => {
   };
 
   const loginPatient = async (email, password) => {
-    const res = await fetch(`${API}/auth/patient-login`, {
+    const res = await fetch(`${API}/api/auth/patient-login`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ email, password }),

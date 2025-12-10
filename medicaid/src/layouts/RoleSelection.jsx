@@ -61,7 +61,7 @@ export default function RoleSelection() {
       {/* Back to Home */}
 
       <Link
-        to={"/"}
+        to={"https://medichainafrica.com"}
         className="border-2 border-gray-400 text-black hover:bg-gray-50 text-base px-8 py-4 rounded-full font-semibold transition bg-transparent"
       >
         Back to Home
