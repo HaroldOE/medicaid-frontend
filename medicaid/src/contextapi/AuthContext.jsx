@@ -1,11 +1,14 @@
 // src/context/AuthContext.jsx
+// top of file (after imports)
+const API = import.meta.env.VITE_API_BASE || "https://api.medichainafrica.com/api";
+
 import { createContext, useContext, useState, useEffect } from "react";
 
 const AuthContext = createContext();
 
 export const useAuth = () => useContext(AuthContext);
 
-const API = import.meta.env.VITE_API_URL ;
+
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
@@ -18,7 +21,7 @@ export const AuthProvider = ({ children }) => {
   }, []);
 
   const register = async (formData) => {
-    const res = await fetch(`${API}/api/doctors`, {
+      const res = await fetch(`${API}/api/auth/login`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(formData),
@@ -30,7 +33,7 @@ export const AuthProvider = ({ children }) => {
 
   // NEW: Patient Registration
   const registerPatient = async (formData) => {
-    const res = await fetch(`${API}/api/patients`, {
+    const res = await fetch(`${API}/auth/patient-login`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(formData),
