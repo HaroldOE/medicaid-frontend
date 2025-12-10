@@ -12,7 +12,7 @@ export default function MyPatientsHeader() {
           href="#"
           className="text-sm text-gray-600 hover:underline mb-3 inline-block"
         >
-          Back to Dashboard
+          
         </a>
 
         <div className="flex justify-between items-center mb-6">

@@ -112,6 +112,9 @@ const AppRouter = () => {
         />
         <Route path="emergecy-contact-card" element={<EmergecyContactCard />} />
         <Route path="patients-medical-history" element={<MainMedHistory />} />
+
+        {/* ======================= ADMIN DASHBOARD====================================== */}
+        
         <Route path="admin-dashboard" element={<AdminDashboard/>}/>
         <Route path="user-management" element={<UserManagementPage/>}/>
         <Route path="doctor-management" element={<DoctorManagementPage />} />
